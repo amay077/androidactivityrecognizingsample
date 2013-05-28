@@ -5,6 +5,7 @@ import com.google.android.gms.location.DetectedActivity;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -46,10 +47,10 @@ public class ReceiveRecognitionIntentService extends IntentService {
 		// 画面に結果を表示するために、Broadcast で通知。
 		//  MainActivity にしかけた BroadcastReceiver で受信する。
 		Intent notifyIntent = new Intent("receive_recognition");
-		notifyIntent.setPackage(getPackageName());
 		notifyIntent.putExtra("activity_type", activityType);
 		notifyIntent.putExtra("confidence", confidence);
 		notifyIntent.putExtra("time", result.getTime());
-		sendBroadcast(notifyIntent);
+		
+		LocalBroadcastManager.getInstance(this).sendBroadcast(notifyIntent);
 	}
 }

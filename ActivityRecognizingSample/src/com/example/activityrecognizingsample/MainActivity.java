@@ -13,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.View;
@@ -85,7 +86,8 @@ public class MainActivity extends Activity {
         _textResult = (TextView)findViewById(R.id.text_results);
         
         // IntentService から Broadcast される認識結果を受け取るための Receiver を登録しておく
-        registerReceiver(_receiveFromIntentService, new IntentFilter("receive_recognition"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+        		_receiveFromIntentService, new IntentFilter("receive_recognition"));
         
         final Button buttonStart = (Button)findViewById(R.id.button_start);
         buttonStart.setOnClickListener(new OnClickListener() {
